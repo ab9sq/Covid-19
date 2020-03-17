@@ -3,14 +3,14 @@ title: "EPI Info CDC"
 author: "Nick Lauerman"
 date: "3/16/2020"
 output: 
-  html_document: 
-    df_print: tibble
+  pdf_document: 
     fig_caption: yes
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
     toc_depth: 5
-  pdf_document: 
+  html_document: 
+    df_print: tibble
     fig_caption: yes
     fig_height: 6.5
     fig_width: 6.5
@@ -44,7 +44,13 @@ cdc$Date <- as.Date(cdc$Date,
                     format = "%d-%b-%y")
 ```
 
-# visualize
+# Data
+```{r}
+cdc %>%
+  data.frame
+```
+
+# Visualize all data
 ```{r}
 epi <- ggplot(data = cdc)
 ```
@@ -83,17 +89,20 @@ epi + geom_point(aes(x = Date,
               fill = "blue") +
      labs(y = "Cumulative number of cases",
           title = "Cumulative Number of Cases of COVID-19 Reported to the CDC") +
-     geom_hline(yintercept = mean(cdc$cum))
+     geom_hline(yintercept = mean(cdc$cum)) +
+     geom_hline(yintercept = median(cdc$cum),
+                lty = 2)
 ```
 
 # Filter to remove incomplete reporting
+
 remove dates on or after 5 March as this data may not be completely reported
 ```{r}
 cdc <- cdc %>%
-     filter(Date < as.Date("2020-03-05"))
+     filter(Date < as.Date("2020-03-08"))
 ```
 
-## visualize
+## Visualize
 ```{r}
 epi <- ggplot(data = cdc)
 ```
@@ -122,14 +131,16 @@ epi + geom_col(aes(x=Date,
 ```
 ```{r, fig.cap="Cumulative cases"}
 epi + geom_point(aes(x = Date,
-              y = cum))+
-    # geom_line(aes(x = Date,
-              #y = `cum`)) +
-     geom_smooth(aes(x = Date,
-              y = `cum`),
+                     y = cum))+
+  # geom_line(aes(x = Date,
+  #y = `cum`)) +
+  geom_smooth(aes(x = Date,
+                  y = `cum`),
               color = "red",
               fill = "blue") +
-     labs(y = "Cumulative number of cases",
-          title = "Cumulative Number of Cases of COVID-19 Reported to the CDC") +
-     geom_hline(yintercept = mean(cdc$cum))
+  labs(y = "Cumulative number of cases",
+       title = "Cumulative Number of Cases of COVID-19 Reported to the CDC") +
+  geom_hline(yintercept = mean(cdc$cum)) +
+  geom_hline(yintercept = median(cdc$cum),
+             lty = 2)
 ```
