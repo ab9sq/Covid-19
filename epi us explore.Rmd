@@ -37,8 +37,8 @@ cdc <- read_csv(file = "./data/CDC_data.csv")
 ## Clean data and calculate cumulative number of cases
 
 ```{r}
-names(cdc) = c("Date",
-               "Number of new cases")
+names(cdc)[1:2] <-  c("Date",
+                      "Number of new cases")
 cdc$cum <- cumsum(cdc$`Number of new cases`)
 cdc$Date <- as.Date(cdc$Date,
                     format = "%d-%b-%y")
