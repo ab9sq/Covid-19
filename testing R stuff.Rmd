@@ -1,0 +1,25 @@
+---
+title: "Testing"
+author: "Nick Lauerman"
+date: "3/27/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Libraries
+```{r}
+library(tidyverse)
+```
+
+# test with *rbind*
+```{r}
+a <- tibble(a = 1:3,
+            b = letters[1:3])
+b <- tibble(b = LETTERS[1:3],
+            a = 1:3)
+c <- rbind(a,b)
+```
+
