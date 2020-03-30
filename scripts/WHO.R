@@ -1,3 +1,6 @@
+require(tidyverse)
+require(lubridate)
+
 readWHO <- function(path = "./data/WHO/",
                     file = "report 1.csv",
                     date = NULL,
@@ -20,11 +23,15 @@ WHOClean <- function(dataSet = WHO){
           "Napal"
      dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Republic of Singapore")] <-
           "Singapore"
+     dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "the United Kingdom")] <-
+        "United Kingdom"
+     dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "the United States")] <-
+        "United States of America"
 
      return(dataSet)
 }
 
-endReport <- 35
+endReport <- 45
 WHO <- NULL
 startDay <- as.Date("21-Jan-2020", format = "%d-%b-%Y")
 
