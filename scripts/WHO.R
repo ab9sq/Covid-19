@@ -33,13 +33,17 @@ WHOClean <- function(dataSet = WHO){
         "Saint Barthelemy"
      dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "occupied Palestinian territory")] <-
         "Occupied Palestinian Territory"
+     dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "occupied Palestinian Territory")] <-
+       "Occupied Palestinian Territory"
+     dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Cote d?Ivoire")] <-
+       "Cote d Ivoire"
 
 
 
      return(dataSet)
 }
 
-endReport <- 55
+endReport <- 60
 WHO <- NULL
 startDay <- as.Date("21-Jan-2020", format = "%d-%b-%Y")
 
