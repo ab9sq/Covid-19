@@ -3,14 +3,14 @@ title: "EPI Info CDC"
 author: "Nick Lauerman"
 date: "3/16/2020"
 output: 
-  pdf_document: 
+  html_document: 
+    df_print: tibble
     fig_caption: yes
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
     toc_depth: 5
-  html_document: 
-    df_print: tibble
+  pdf_document: 
     fig_caption: yes
     fig_height: 6.5
     fig_width: 6.5
@@ -23,20 +23,20 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Libraries Used
-```{r}
+```{r libraries}
 library(tidyverse)
 library(lubridate)
 ```
 
 # Load CDC data
 ## Read CSV File
-```{r}
+```{r read}
 cdc <- read_csv(file = "./data/CDC_data.csv")
 ```
 
 ## Clean data and calculate cumulative number of cases
 
-```{r}
+```{r clean}
 names(cdc)[1:2] <-  c("Date",
                       "Number of new cases")
 cdc$cum <- cumsum(cdc$`Number of new cases`)
@@ -44,11 +44,6 @@ cdc$Date <- as.Date(cdc$Date,
                     format = "%d-%b-%y")
 ```
 
-# Data
-```{r}
-cdc %>%
-  data.frame
-```
 
 # Visualize all data
 ```{r}
@@ -99,7 +94,7 @@ epi + geom_point(aes(x = Date,
 remove dates on or after 15 March as this data may not be completely reported
 ```{r}
 cdc <- cdc %>%
-     filter(Date < as.Date("2020-03-21"))
+     filter(Date < as.Date("2020-03-22"))
 ```
 
 ## Visualize
