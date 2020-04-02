@@ -67,7 +67,7 @@ for (i in 1:endReport) {
 
 WHO <- WHOClean(dataSet = WHO)
 
-WHO
+# WHO
 table(WHO$`Country Territory area`,
       useNA = "ifany")
 length(table(WHO$`Country Territory area`,
