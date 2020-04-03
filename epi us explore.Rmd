@@ -30,7 +30,7 @@ library(lubridate)
 
 # Load CDC data
 ## Read CSV File
-```{r read}
+```{r read, message=FALSE}
 cdc <- read_csv(file = "./data/CDC_data.csv")
 ```
 
