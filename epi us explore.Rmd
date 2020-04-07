@@ -91,10 +91,10 @@ epi + geom_point(aes(x = Date,
 
 # Filter to remove incomplete reporting
 
-remove dates on or after 15 March as this data may not be completely reported
+remove dates on or after 25 March as this data may not be completely reported          
 ```{r}
-cdc <- cdc %>%
-     filter(Date < as.Date("2020-03-23"))
+cdc <- cdc %>%                                                                          # update with good date
+     filter(Date < as.Date("2020-03-25"))
 ```
 
 ## Visualize
