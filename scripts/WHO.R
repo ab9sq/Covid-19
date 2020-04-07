@@ -40,12 +40,15 @@ WHOClean <- function(dataSet = WHO){
      dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Kosovo[1]")] <-
        "Kosovo"
 
+     dataSet <- dataSet %>%
+       filter(Region != "Other")
+
 
 
      return(dataSet)
 }
 
-endReport <- 72
+endReport <- 77  # 72
 WHO <- NULL
 startDay <- as.Date("21-Jan-2020", format = "%d-%b-%Y")
 
@@ -74,6 +77,12 @@ length(table(WHO$`Country Territory area`,
              useNA = "ifany"))
 table(WHO$date,
       useNA = "ifany")
+length(table(WHO$date,
+             useNA = "ifany"))
 table(WHO$report,
+      useNA = "ifany")
+length(table(WHO$report,
+             useNA = "ifany"))
+table(WHO$Region,
       useNA = "ifany")
 tail(WHO)
