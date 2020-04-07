@@ -89,6 +89,17 @@ epi + geom_point(aes(x = Date,
                 lty = 2)
 ```
 
+```{r, fig.cap="Growth Rate"}
+epi + geom_line(aes(y = `Number of new cases`,
+                    x = cum)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(aes(y = `Number of new cases`,
+                    x = cum))
+
+```
+
+
 # Filter to remove incomplete reporting
 
 remove dates on or after 25 March as this data may not be completely reported          
@@ -114,6 +125,7 @@ epi + geom_point(aes(x = Date,
      labs(y = "Cases",
           title = "Number of New Cases of COVID-19 Reported to the CDC")
 ```
+
 ```{r, fig.cap="Epi curve 2, traditional"}
 epi + geom_col(aes(x=Date,
                    y=`Number of new cases`),
@@ -124,6 +136,7 @@ epi + geom_col(aes(x=Date,
      labs(y = "Cases",
           title = "Number of New Cases of COVID-19 Reported to the CDC")
 ```
+
 ```{r, fig.cap="Cumulative cases"}
 epi + geom_point(aes(x = Date,
                      y = cum))+
@@ -138,4 +151,14 @@ epi + geom_point(aes(x = Date,
   geom_hline(yintercept = mean(cdc$cum)) +
   geom_hline(yintercept = median(cdc$cum),
              lty = 2)
+```
+
+```{r, fig.cap="Growth Rate"}
+epi + geom_line(aes(y = `Number of new cases`,
+                    x = cum)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(aes(y = `Number of new cases`,
+                    x = cum))
+
 ```
