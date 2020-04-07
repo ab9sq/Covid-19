@@ -43,6 +43,7 @@ names(cdc)[1:2] <-  c("Date",
 cdc$cum <- cumsum(cdc$`Number of new cases`)
 cdc$Date <- as.Date(cdc$Date,
                     format = "%d-%b-%y")
+cdc$`Week Number` <- week(cdc$Date)
 ```
 
 
@@ -53,9 +54,6 @@ epi <- ggplot(data = cdc)
 ```{r, fig.cap="Epi curve 1"}
 epi + geom_point(aes(x = Date,
               y = `Number of new cases`))+
-#     geom_line(aes(x = Date,
-#              y = `Number of new cases`),
-#              linetype = 2) +
      geom_smooth(aes(x = Date,
               y = `Number of new cases`),
               color = "red",
@@ -93,15 +91,41 @@ epi + geom_point(aes(x = Date,
 ```{r, fig.cap="Growth Rate"}
 gr <- cdc %>%
   filter(`Number of new cases` != 0)
+
 ggplot(data = gr) +
   geom_line(aes(y = `Number of new cases`,
                     x = cum)) +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(aes(y = `Number of new cases`,
-                    x = cum))
+                    x = cum)) +
+  labs(title = "Daily Growth Rate",
+       x = "Total Cases (log)",
+       y = "New Cases (log)")
 
 ```
+
+```{r, fig.cap="weekly growth rate"}
+gr <- cdc %>%
+     group_by(`Week Number`) %>%
+     summarise(cases = sum(`Number of new cases`),
+               cs = sum(cum))
+
+ggplot(data = gr) +
+     geom_line(aes(y = `cases`,
+                   x = cs)) + 
+     geom_point(aes(y = `cases`,
+                    x = cs)) +
+     scale_x_log10() +
+     scale_y_log10() +
+     geom_smooth(aes(y = `cases`,
+                     x = cs)) +
+  labs(title = "Weekly Growth Rate",
+       x = "Total Cases (log)",
+       y = "New Cases (log)")
+
+```
+
 
 
 # Filter to remove incomplete reporting
@@ -119,9 +143,6 @@ epi <- ggplot(data = cdc)
 ```{r, fig.cap="Epi curve 1"}
 epi + geom_point(aes(x = Date,
               y = `Number of new cases`))+
-#     geom_line(aes(x = Date,
-#              y = `Number of new cases`),
-#              linetype = 2) +
      geom_smooth(aes(x = Date,
               y = `Number of new cases`),
               color = "red",
@@ -144,8 +165,6 @@ epi + geom_col(aes(x=Date,
 ```{r, fig.cap="Cumulative cases"}
 epi + geom_point(aes(x = Date,
                      y = cum))+
-  # geom_line(aes(x = Date,
-  #y = `cum`)) +
   geom_smooth(aes(x = Date,
                   y = `cum`),
               color = "red",
@@ -166,6 +185,30 @@ ggplot(data = gr) +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(aes(y = `Number of new cases`,
-                    x = cum))
+                    x = cum)) +
+  labs(title = "Daily Growth Rate",
+       x = "Total Cases (log)",
+       y = "New Cases (log)")
 
+
+```
+
+```{r, fig.cap="weekly growth rate"}
+gr <- cdc %>%
+     group_by(`Week Number`) %>%
+     summarise(cases = sum(`Number of new cases`),
+               cs = sum(cum))
+
+ggplot(data = gr) +
+     geom_line(aes(y = `cases`,
+                   x = cs)) + 
+     geom_point(aes(y = `cases`,
+                    x = cs)) +
+     scale_x_log10() +
+     scale_y_log10() +
+     geom_smooth(aes(y = `cases`,
+                     x = cs)) +
+  labs(title = "Weekly Growth Rate",
+       x = "Total Cases (log)",
+       y = "New Cases (log)")
 ```
