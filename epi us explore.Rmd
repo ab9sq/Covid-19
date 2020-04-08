@@ -3,18 +3,17 @@ title: "EPI Info CDC"
 author: "Nick Lauerman"
 date: "3/16/2020"
 output: 
-  html_document: 
-    df_print: tibble
+  pdf_document: 
     fig_caption: yes
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
     toc_depth: 5
-  pdf_document: 
+  html_document: 
+    df_print: tibble
     fig_caption: yes
     fig_height: 6.5
     fig_width: 6.5
-    keep_tex: yes
     toc: yes
     toc_depth: 5
 ---
@@ -133,7 +132,7 @@ ggplot(data = gr) +
 remove dates on or after 25 March as this data may not be completely reported          
 ```{r}
 cdc <- cdc %>%                                                                          # update with good date
-     filter(Date < as.Date("2020-03-25"))
+     filter(Date <= as.Date("2020-03-26"))
 ```
 
 ## Visualize
