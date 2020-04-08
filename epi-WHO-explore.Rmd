@@ -1,6 +1,33 @@
-require(tidyverse)
-require(lubridate)
+---
+title: "WHO data"
+author: "Nick Lauerman"
+date: "4/8/2020"
+output: 
+  pdf_document: 
+    fig_height: 6.5
+    fig_width: 6.5
+    toc: yes
+    toc_depth: 5
+  html_document: 
+    fig_caption: yes
+    fig_height: 6.5
+    fig_width: 6.5
+    toc: yes
+    toc_depth: 5
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Libraries Used
+```{r}
+library(tidyverse)
+library(lubridate)
+```
+
+# Developed Functions
+```{r}
 readWHO <- function(path = "./data/WHO/",
                     file = "report 1.csv",
                     date = NULL,
@@ -43,24 +70,24 @@ WHOClean <- function(dataSet = WHO){
        "Lao People's Democratic Republic"
      dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Dominican")] <-
        "Dominican Republic"
-
-
-
      dataSet <- dataSet %>%
        filter(Region != "Other")
-
-
-
      return(dataSet)
 }
+```
 
+# Read data in
+## Set varibles
+```{r}
 endReport <- 78  # 77
 WHO <- NULL
 startDay <- as.Date("21-Jan-2020", format = "%d-%b-%Y")
+```
 
+## Get the data
+```{r}
 for (i in 1:endReport) {
      reportDate <- startDay + days(i - 1)
-
      fileName <- paste("report ",
                        i,
                        ".csv",
@@ -68,15 +95,19 @@ for (i in 1:endReport) {
      temp <- readWHO(file = fileName,
                      date = reportDate,
                      reportNumber = i)
-
      WHO <- rbind(WHO,
                   temp)
      rm(temp)
 }
+```
 
+## Post process/clean the data
+```{r}
 WHO <- WHOClean(dataSet = WHO)
+```
 
-# WHO
+## data check
+```{r}
 temp <- table(WHO$`Country Territory area`,
       useNA = "ifany")
 temp[order(temp,
@@ -101,3 +132,5 @@ temp[order(temp,
 rm (temp)
 
 tail(WHO)
+```
+
