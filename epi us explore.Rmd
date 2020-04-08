@@ -133,7 +133,7 @@ ggplot(data = gr) +
 remove dates on or after 25 March as this data may not be completely reported          
 ```{r}
 cdc <- cdc %>%                                                                          # update with good date
-     filter(Date <= as.Date("2020-03-26"))
+     filter(Date < as.Date("2020-03-28"))
 ```
 
 ## Visualize
