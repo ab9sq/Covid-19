@@ -54,7 +54,7 @@ WHOClean <- function(dataSet = WHO){
      return(dataSet)
 }
 
-endReport <- 78  # 77
+endReport <- 80  # 78
 WHO <- NULL
 startDay <- as.Date("21-Jan-2020", format = "%d-%b-%Y")
 
