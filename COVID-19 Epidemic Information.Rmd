@@ -3,15 +3,15 @@ title: "COVID-19 Epidemic Information"
 author: "Nick Lauerman"
 date: ""
 output: 
-  html_document: 
+  pdf_document: 
     fig_caption: yes
+    fig_crop: no
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
     toc_depth: 5
-  pdf_document: 
+  html_document: 
     fig_caption: yes
-    fig_crop: no
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
@@ -300,10 +300,10 @@ ggplot(data = gr) +
 ```
 
 ### Filtered to use only "complete data"
-Remove dates on or after 3 April as this data may not be completely reported          
+Remove dates on or after 4 April as this data may not be completely reported          
 ```{r}
 cdc <- cdc %>%                                                                          # update with good date
-     filter(Date < as.Date("2020-04-03")) %>%
+     filter(Date < as.Date("2020-04-04")) %>%
   filter(`Number of new cases` != 0)
 ```
 

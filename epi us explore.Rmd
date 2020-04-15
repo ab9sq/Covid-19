@@ -130,10 +130,10 @@ ggplot(data = gr) +
 
 # Filter to remove incomplete reporting
 
-remove dates on or after 3 April as this data may not be completely reported          
+remove dates on or after 4 April as this data may not be completely reported          
 ```{r}
 cdc <- cdc %>%                                                                          # update with good date
-     filter(Date < as.Date("2020-04-03"))
+     filter(Date < as.Date("2020-04-04"))
 ```
 
 ## Visualize
