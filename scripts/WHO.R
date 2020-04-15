@@ -15,10 +15,14 @@ readWHO <- function(path = "./data/WHO/",
      rawData$report <- reportNumber
      rawData$date <- date
      rawData$New[is.na(rawData$New)] <- FALSE
+     rawData$`Confirmed new cases`[is.na(rawData$`Confirmed new cases`)] <- 0
+     rawData$`total new deaths`[is.na(rawData$`total new deaths`)] <- 0
+     rawData$`Week Number` <- week(rawData$date)
      return(rawData)
 }
 
 WHOClean <- function(dataSet = WHO){
+
      dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Federal Democratic Republic of Napal")] <-
           "Napal"
      dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Republic of Singapore")] <-
@@ -54,7 +58,7 @@ WHOClean <- function(dataSet = WHO){
      return(dataSet)
 }
 
-endReport <- 83  # 80
+endReport <- 85  # 83
 WHO <- NULL
 startDay <- as.Date("21-Jan-2020", format = "%d-%b-%Y")
 
@@ -77,27 +81,33 @@ for (i in 1:endReport) {
 WHO <- WHOClean(dataSet = WHO)
 
 # WHO
-temp <- table(WHO$`Country Territory area`,
-      useNA = "ifany")
-temp[order(temp,
-           decreasing = TRUE)]
-temp[temp == 1]
-length(temp)
-
-table(WHO$date,
-      useNA = "ifany")
-length(table(WHO$date,
-             useNA = "ifany"))
-
-table(WHO$report,
-      useNA = "ifany")
-length(table(WHO$report,
-             useNA = "ifany"))
-
-temp <- table(WHO$Region,
-      useNA = "ifany")
-temp[order(temp,
-           decreasing = TRUE)]
-rm (temp)
-
+# temp <- table(WHO$`Country Territory area`,
+#       useNA = "ifany")
+# temp[order(temp,
+#            decreasing = TRUE)]
+# temp[temp == 1]
+# length(temp)
+#
+# table(WHO$date,
+#       useNA = "ifany")
+# length(table(WHO$date,
+#              useNA = "ifany"))
+#
+# table(WHO$report,
+#       useNA = "ifany")
+# length(table(WHO$report,
+#              useNA = "ifany"))
+#
+# temp <- table(WHO$Region,
+#       useNA = "ifany")
+# temp[order(temp,
+#            decreasing = TRUE)]
+# rm (temp)
+rm(endReport)
+rm(fileName)
+rm(i)
+rm(reportDate)
+rm(startDay)
+rm(readWHO)
+rm(WHOClean)
 tail(WHO)
