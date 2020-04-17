@@ -104,12 +104,28 @@ ggplot(data = gr) +
 
 ```
 
+```{r, echo=FALSE, fig.cap="Another look at growth"}
+ggplot(data = gr) +
+     geom_line(aes(y = `cum`,
+                   x = `Date`)) + 
+     geom_point(aes(y = `cum`,
+                    x = `Date`)) +
+     scale_y_log10() +
+     geom_smooth(aes(y = `cum`,
+                     x = `Date`),
+              method = "loess",
+              formula = y ~ x) +
+  labs(title = "Growth Rate",
+       x = "Date",
+       y = "Total Cases (log)")
+```
+
 ```{r, fig.cap="weekly growth rate", echo=FALSE}
 gr <- cdc %>%
      group_by(`Week Number`) %>%
      summarise(cases = sum(`Number of new cases`),
-               cs = sum(cum),
-               count = n())
+               cs = max(cum),
+               count = n()) 
 
 ggplot(data = gr) +
      geom_line(aes(y = `cases`,
@@ -127,13 +143,30 @@ ggplot(data = gr) +
 ```
 
 
+```{r, echo=FALSE, fig.cap="Another look at growth"}
+ggplot(data = gr) +
+     geom_line(aes(y = `cases`,
+                   x = `Week Number`)) + 
+     geom_point(aes(y = `cases`,
+                    x = `Week Number`)) +
+     scale_y_log10() +
+     geom_smooth(aes(y = `cases`,
+                     x = `Week Number`),
+              method = "loess",
+              formula = y ~ x) +
+  labs(title = "Weekly Growth Rate",
+       x = "Week of the year",
+       y = "New Cases (log)")
+```
+
 
 # Filter to remove incomplete reporting
 
-remove dates on or after 4 April as this data may not be completely reported          
+remove dates on or after 5 April as this data may not be completely reported          
 ```{r}
 cdc <- cdc %>%                                                                          # update with good date
-     filter(Date < as.Date("2020-04-04"))
+     filter(Date < as.Date("05-Apr-2020",
+                           format = "%d-%b-%Y"))
 ```
 
 ## Visualize
@@ -193,11 +226,27 @@ ggplot(data = gr) +
 
 ```
 
+```{r, echo=FALSE, fig.cap="Another look at growth"}
+ggplot(data = gr) +
+     geom_line(aes(y = `cum`,
+                   x = `Date`)) + 
+     geom_point(aes(y = `cum`,
+                    x = `Date`)) +
+     scale_y_log10() +
+     geom_smooth(aes(y = `cum`,
+                     x = `Date`),
+              method = "loess",
+              formula = y ~ x) +
+  labs(title = "Growth Rate",
+       x = "Date",
+       y = "Total Cases (log)")
+```
+
 ```{r, fig.cap="stable weekly growth rate", echo=FALSE}
 gr <- cdc %>%
      group_by(`Week Number`) %>%
      summarise(cases = sum(`Number of new cases`),
-               cs = sum(cum),
+               cs = max(cum),
                count = n())
 
 ggplot(data = gr) +
@@ -211,5 +260,21 @@ ggplot(data = gr) +
                      x = cs)) +
   labs(title = "Weekly Growth Rate",
        x = "Total Cases (log)",
+       y = "New Cases (log)")
+```
+
+```{r, echo=FALSE, fig.cap="Another look at growth"}
+ggplot(data = gr) +
+     geom_line(aes(y = `cases`,
+                   x = `Week Number`)) + 
+     geom_point(aes(y = `cases`,
+                    x = `Week Number`)) +
+     scale_y_log10() +
+     geom_smooth(aes(y = `cases`,
+                     x = `Week Number`),
+              method = "loess",
+              formula = y ~ x) +
+  labs(title = "Weekly Growth Rate",
+       x = "Week of the year",
        y = "New Cases (log)")
 ```

@@ -3,15 +3,15 @@ title: "COVID-19 Epidemic Information"
 author: "Nick Lauerman"
 date: ""
 output: 
-  html_document: 
+  pdf_document: 
     fig_caption: yes
+    fig_crop: no
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
     toc_depth: 5
-  pdf_document: 
+  html_document: 
     fig_caption: yes
-    fig_crop: no
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
@@ -156,7 +156,7 @@ ggplot(data = gr) +
 gr <- world %>%
      group_by(`Week Number`) %>%
      summarise(cases = sum(`Number of new cases`),
-               cs = sum(cum),
+               cs = max(cum),
                count = n())
 
 ggplot(data = gr) +
@@ -276,7 +276,7 @@ ggplot(data = gr) +
 gr <- germany %>%
      group_by(`Week Number`) %>%
      summarise(cases = sum(`Confirmed new cases`),
-               cs = sum(`total Confirmed Cases`),
+               cs = max(`total Confirmed Cases`),
                count = n()) %>%
      filter(cases != 0)
 
@@ -406,7 +406,7 @@ ggplot(data = gr) +
 gr <- cdc %>%
      group_by(`Week Number`) %>%
      summarise(cases = sum(`Number of new cases`),
-               cs = sum(cum),
+               cs = max(cum),
                count = n())
 
 ggplot(data = gr) +
@@ -534,7 +534,7 @@ ggplot(data = gr) +
 gr <- cdc %>%
      group_by(`Week Number`) %>%
      summarise(cases = sum(`Number of new cases`),
-               cs = sum(cum),
+               cs = max(cum),
                count = n())
 
 ggplot(data = gr) +
@@ -657,7 +657,7 @@ ggplot(data = gr) +
 gr <- US %>%
      group_by(`Week Number`) %>%
      summarise(cases = sum(`Confirmed new cases`),
-               cs = sum(`total Confirmed Cases`),
+               cs = max(`total Confirmed Cases`),
                count = n()) %>%
      filter(cases != 0)
 
