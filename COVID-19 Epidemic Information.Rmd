@@ -3,15 +3,15 @@ title: "COVID-19 Epidemic Information"
 author: "Nick Lauerman"
 date: ""
 output: 
-  pdf_document: 
+  html_document: 
     fig_caption: yes
-    fig_crop: no
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
     toc_depth: 5
-  html_document: 
+  pdf_document: 
     fig_caption: yes
+    fig_crop: no
     fig_height: 6.5
     fig_width: 6.5
     toc: yes
@@ -55,8 +55,7 @@ The data for Germany is extracted from the WHO data for easy in displaying
 
 ```{r}
 germany <- WHO %>%
-     filter(`Country Territory area` == "Germany")
-germany$`Week Number` <- week(germany$date)
+  filter(`Country Territory area` == "Germany")
 ```
 
 ## Create data set for world wide data
@@ -65,11 +64,12 @@ This data set displays the daily total for world wide data.
 
 ```{r}
 world <- WHO %>%
-     group_by(`date`) %>%
-     summarise(`Number of new cases` = sum(`Confirmed new cases`),
-               cum = sum(`total Confirmed Cases`))
+  group_by(`date`) %>%
+  summarise(`Number of new cases` = sum(`Confirmed new cases`),
+            cum = sum(`total Confirmed Cases`))
 world$`Week Number` <- week(world$date)
 ```
+
 
 # Charts and graphs
 ## World Wide
@@ -80,40 +80,40 @@ epi <- ggplot(data = world)
 
 ```{r, fig.cap="Epi curve 1", echo=FALSE}
 epi + geom_point(aes(x = date,
-              y = `Number of new cases`))+
-     geom_smooth(aes(x = date,
-              y = `Number of new cases`),
+                     y = `Number of new cases`))+
+  geom_smooth(aes(x = date,
+                  y = `Number of new cases`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19 Reported to the WHO")
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19 Reported to the WHO")
 ```
 ```{r, fig.cap="Epi curve 2, traditional", echo=FALSE}
 epi + geom_col(aes(x=date,
                    y=`Number of new cases`),
                fill= "blue") +
-     geom_smooth(aes(x=date,
-                   y=`Number of new cases`),
+  geom_smooth(aes(x=date,
+                  y=`Number of new cases`),
               method = "loess",
               formula = y ~ x,
-                 color = "red") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19 Reported to the WHO")
+              color = "red") +
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19 Reported to the WHO")
 ```
 
 ```{r, fig.cap="Cumulative cases", echo=FALSE}
 epi + geom_point(aes(x = date,
-              y = cum))+
-     geom_smooth(aes(x = date,
-              y = `cum`),
+                     y = cum))+
+  geom_smooth(aes(x = date,
+                  y = `cum`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cumulative number of cases",
-          title = "Cumulative Number of Cases of COVID-19 Reported to the WHO")
+  labs(y = "Cumulative number of cases",
+       title = "Cumulative Number of Cases of COVID-19 Reported to the WHO")
 ```
 
 ```{r, fig.cap="Growth Rate", echo=FALSE}
@@ -122,11 +122,11 @@ gr <- world %>%
 
 ggplot(data = gr) +
   geom_line(aes(y = `Number of new cases`,
-                    x = cum)) +
+                x = cum)) +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(aes(y = `Number of new cases`,
-                    x = cum),
+                  x = cum),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Daily Growth Rate",
@@ -137,13 +137,13 @@ ggplot(data = gr) +
 
 ```{r, echo=FALSE, fig.cap="Another look at growth"}
 ggplot(data = gr) +
-     geom_line(aes(y = `cum`,
-                   x = `date`)) + 
-     geom_point(aes(y = `cum`,
-                    x = `date`)) +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cum`,
-                     x = `date`),
+  geom_line(aes(y = `cum`,
+                x = `date`)) + 
+  geom_point(aes(y = `cum`,
+                 x = `date`)) +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cum`,
+                  x = `date`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Growth Rate",
@@ -154,20 +154,20 @@ ggplot(data = gr) +
 
 ```{r, fig.cap="weekly growth rate", echo=FALSE}
 gr <- world %>%
-     group_by(`Week Number`) %>%
-     summarise(cases = sum(`Number of new cases`),
-               cs = max(cum),
-               count = n())
+  group_by(`Week Number`) %>%
+  summarise(cases = sum(`Number of new cases`),
+            cs = max(cum),
+            count = n())
 
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = cs)) + 
-     geom_point(aes(y = `cases`,
-                    x = cs)) +
-     scale_x_log10() +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = cs),
+  geom_line(aes(y = `cases`,
+                x = cs)) + 
+  geom_point(aes(y = `cases`,
+                 x = cs)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = cs),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -178,13 +178,13 @@ ggplot(data = gr) +
 
 ```{r, echo=FALSE, fig.cap="Another look at growth"}
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = `Week Number`)) + 
-     geom_point(aes(y = `cases`,
-                    x = `Week Number`)) +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = `Week Number`),
+  geom_line(aes(y = `cases`,
+                x = `Week Number`)) + 
+  geom_point(aes(y = `cases`,
+                 x = `Week Number`)) +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = `Week Number`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -201,41 +201,41 @@ epi <- ggplot(data = germany)
 
 ```{r, fig.cap="Epi curve 1", echo=FALSE}
 epi + geom_point(aes(x = date,
-              y = `Confirmed new cases`))+
-     geom_smooth(aes(x = date,
-              y = `Confirmed new cases`),
+                     y = `Confirmed new cases`))+
+  geom_smooth(aes(x = date,
+                  y = `Confirmed new cases`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19")
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19")
 ```
 
 ```{r, fig.cap="Epi curve 2, traditional", echo=FALSE}
 epi + geom_col(aes(x=date,
                    y=`Confirmed new cases`),
                fill= "blue") +
-     geom_smooth(aes(x=date,
-                   y=`Confirmed new cases`),
+  geom_smooth(aes(x=date,
+                  y=`Confirmed new cases`),
               method = "loess",
               formula = y ~ x,
-                 color = "red") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19 Reported")
+              color = "red") +
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19 Reported")
 ```
 
 ```{r, fig.cap="Cumulative cases", echo=FALSE}
 epi + geom_point(aes(x = date,
-              y = `total Confirmed Cases`))+
-     geom_smooth(aes(x = date,
-              y = `total Confirmed Cases`),
+                     y = `total Confirmed Cases`))+
+  geom_smooth(aes(x = date,
+                  y = `total Confirmed Cases`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cumulative number of cases",
-          title = "Cumulative Number of Cases of COVID-19 Reported")
+  labs(y = "Cumulative number of cases",
+       title = "Cumulative Number of Cases of COVID-19 Reported")
 ```
 
 ```{r, fig.cap="Growth Rate", echo=FALSE}
@@ -244,11 +244,11 @@ gr <- germany %>%
 
 ggplot(data = gr) +
   geom_line(aes(y = `Confirmed new cases`,
-                    x = `total Confirmed Cases`)) +
+                x = `total Confirmed Cases`)) +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(aes(y = `Confirmed new cases`,
-                    x = `total Confirmed Cases`),
+                  x = `total Confirmed Cases`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Daily Growth Rate",
@@ -263,7 +263,7 @@ ggplot(data = gr) +
                 y = `total Confirmed Cases`)) +
   scale_y_log10() +
   geom_smooth(aes(x = `date`,
-                    y = `total Confirmed Cases`),
+                  y = `total Confirmed Cases`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Daily Growth Rate",
@@ -274,21 +274,21 @@ ggplot(data = gr) +
 
 ```{r, fig.cap="Weekly growth rate", echo=FALSE}
 gr <- germany %>%
-     group_by(`Week Number`) %>%
-     summarise(cases = sum(`Confirmed new cases`),
-               cs = max(`total Confirmed Cases`),
-               count = n()) %>%
-     filter(cases != 0)
+  group_by(`Week Number`) %>%
+  summarise(cases = sum(`Confirmed new cases`),
+            cs = max(`total Confirmed Cases`),
+            count = n()) %>%
+  filter(cases != 0)
 
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = cs)) + 
-     geom_point(aes(y = `cases`,
-                    x = cs)) +
-     scale_x_log10() +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = cs),
+  geom_line(aes(y = `cases`,
+                x = cs)) + 
+  geom_point(aes(y = `cases`,
+                 x = cs)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = cs),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -298,13 +298,13 @@ ggplot(data = gr) +
 
 ```{r, echo=FALSE, fig.cap="Another look at growth"}
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = `Week Number`)) + 
-     geom_point(aes(y = `cases`,
-                    x = `Week Number`)) +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = `Week Number`),
+  geom_line(aes(y = `cases`,
+                x = `Week Number`)) + 
+  geom_point(aes(y = `cases`,
+                 x = `Week Number`)) +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = `Week Number`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -326,43 +326,43 @@ epi <- ggplot(data = cdc)
 
 ```{r, fig.cap="Epi curve 1", echo=FALSE}
 epi + geom_point(aes(x = Date,
-              y = `Number of new cases`))+
-     geom_smooth(aes(x = Date,
-              y = `Number of new cases`),
+                     y = `Number of new cases`))+
+  geom_smooth(aes(x = Date,
+                  y = `Number of new cases`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19 Reported to the CDC")
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19 Reported to the CDC")
 ```
 
 ```{r, fig.cap="Epi curve 2, traditional", echo=FALSE}
 epi + geom_col(aes(x=Date,
                    y=`Number of new cases`),
                fill= "blue") +
-     geom_smooth(aes(x=Date,
-                   y=`Number of new cases`),
+  geom_smooth(aes(x=Date,
+                  y=`Number of new cases`),
               method = "loess",
               formula = y ~ x,
-                 color = "red") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19 Reported to the CDC")
+              color = "red") +
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19 Reported to the CDC")
 ```
 
 ```{r, fig.cap="Cumulative cases", echo=FALSE}
 epi + geom_point(aes(x = Date,
-              y = cum))+
-    # geom_line(aes(x = Date,
-              #y = `cum`)) +
-     geom_smooth(aes(x = Date,
-              y = `cum`),
+                     y = cum))+
+  # geom_line(aes(x = Date,
+  #y = `cum`)) +
+  geom_smooth(aes(x = Date,
+                  y = `cum`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cumulative number of cases",
-          title = "Cumulative Number of Cases of COVID-19 Reported to the CDC")
+  labs(y = "Cumulative number of cases",
+       title = "Cumulative Number of Cases of COVID-19 Reported to the CDC")
 ```
 
 ```{r, fig.cap="Growth Rate", echo=FALSE}
@@ -371,11 +371,11 @@ gr <- cdc %>%
 
 ggplot(data = gr) +
   geom_line(aes(y = `Number of new cases`,
-                    x = cum)) +
+                x = cum)) +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(aes(y = `Number of new cases`,
-                    x = cum),
+                  x = cum),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Daily Growth Rate",
@@ -386,13 +386,13 @@ ggplot(data = gr) +
 
 ```{r, echo=FALSE, fig.cap="Another look at growth"}
 ggplot(data = gr) +
-     geom_line(aes(y = `cum`,
-                   x = `Date`)) + 
-     geom_point(aes(y = `cum`,
-                    x = `Date`)) +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cum`,
-                     x = `Date`),
+  geom_line(aes(y = `cum`,
+                x = `Date`)) + 
+  geom_point(aes(y = `cum`,
+                 x = `Date`)) +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cum`,
+                  x = `Date`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Growth Rate",
@@ -404,20 +404,20 @@ ggplot(data = gr) +
 
 ```{r, fig.cap="weekly growth rate", echo=FALSE}
 gr <- cdc %>%
-     group_by(`Week Number`) %>%
-     summarise(cases = sum(`Number of new cases`),
-               cs = max(cum),
-               count = n())
+  group_by(`Week Number`) %>%
+  summarise(cases = sum(`Number of new cases`),
+            cs = max(cum),
+            count = n())
 
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = cs)) + 
-     geom_point(aes(y = `cases`,
-                    x = cs)) +
-     scale_x_log10() +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = cs),
+  geom_line(aes(y = `cases`,
+                x = cs)) + 
+  geom_point(aes(y = `cases`,
+                 x = cs)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = cs),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -427,13 +427,13 @@ ggplot(data = gr) +
 
 ```{r, echo=FALSE, fig.cap="Another look at growth"}
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = `Week Number`)) + 
-     geom_point(aes(y = `cases`,
-                    x = `Week Number`)) +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = `Week Number`),
+  geom_line(aes(y = `cases`,
+                x = `Week Number`)) + 
+  geom_point(aes(y = `cases`,
+                 x = `Week Number`)) +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = `Week Number`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -447,7 +447,7 @@ Remove dates on or after 4 April as this data may not be completely reported
 
 ```{r, echo=FALSE}
 cdc <- cdc %>%
-     filter(Date < as.Date("2020-04-04")) %>%
+  filter(Date < as.Date("2020-04-04")) %>%
   filter(`Number of new cases` != 0)
 ```
 
@@ -457,43 +457,43 @@ epi <- ggplot(data = cdc)
 
 ```{r, fig.cap="Epi curve 1", echo=FALSE}
 epi + geom_point(aes(x = Date,
-              y = `Number of new cases`))+
-     geom_smooth(aes(x = Date,
-              y = `Number of new cases`),
+                     y = `Number of new cases`))+
+  geom_smooth(aes(x = Date,
+                  y = `Number of new cases`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19 Reported to the CDC")
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19 Reported to the CDC")
 ```
 
 ```{r, fig.cap="Epi curve 2, traditional", echo=FALSE}
 epi + geom_col(aes(x=Date,
                    y=`Number of new cases`),
                fill= "blue") +
-     geom_smooth(aes(x=Date,
-                   y=`Number of new cases`),
+  geom_smooth(aes(x=Date,
+                  y=`Number of new cases`),
               method = "loess",
               formula = y ~ x,
-                 color = "red") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19 Reported to the CDC")
+              color = "red") +
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19 Reported to the CDC")
 ```
 
 ```{r, fig.cap="Cumulative cases", echo=FALSE}
 epi + geom_point(aes(x = Date,
-              y = cum))+
-    # geom_line(aes(x = Date,
-              #y = `cum`)) +
-     geom_smooth(aes(x = Date,
-              y = `cum`),
+                     y = cum))+
+  # geom_line(aes(x = Date,
+  #y = `cum`)) +
+  geom_smooth(aes(x = Date,
+                  y = `cum`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cumulative number of cases",
-          title = "Cumulative Number of Cases of COVID-19 Reported to the CDC")
+  labs(y = "Cumulative number of cases",
+       title = "Cumulative Number of Cases of COVID-19 Reported to the CDC")
 ```
 
 ```{r, fig.cap="Growth Rate", echo=FALSE}
@@ -502,11 +502,11 @@ gr <- cdc %>%
 
 ggplot(data = gr) +
   geom_line(aes(y = `Number of new cases`,
-                    x = cum)) +
+                x = cum)) +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(aes(y = `Number of new cases`,
-                    x = cum),
+                  x = cum),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Daily Growth Rate",
@@ -516,13 +516,13 @@ ggplot(data = gr) +
 
 ```{r, echo=FALSE, fig.cap="Another look at growth"}
 ggplot(data = gr) +
-     geom_line(aes(y = `cum`,
-                   x = `Date`)) + 
-     geom_point(aes(y = `cum`,
-                    x = `Date`)) +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cum`,
-                     x = `Date`),
+  geom_line(aes(y = `cum`,
+                x = `Date`)) + 
+  geom_point(aes(y = `cum`,
+                 x = `Date`)) +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cum`,
+                  x = `Date`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Growth Rate",
@@ -532,20 +532,20 @@ ggplot(data = gr) +
 
 ```{r, fig.cap="weekly growth rate", echo=FALSE}
 gr <- cdc %>%
-     group_by(`Week Number`) %>%
-     summarise(cases = sum(`Number of new cases`),
-               cs = max(cum),
-               count = n())
+  group_by(`Week Number`) %>%
+  summarise(cases = sum(`Number of new cases`),
+            cs = max(cum),
+            count = n())
 
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = cs)) + 
-     geom_point(aes(y = `cases`,
-                    x = cs)) +
-     scale_x_log10() +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = cs),
+  geom_line(aes(y = `cases`,
+                x = cs)) + 
+  geom_point(aes(y = `cases`,
+                 x = cs)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = cs),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -555,13 +555,13 @@ ggplot(data = gr) +
 
 ```{r, echo=FALSE, fig.cap="Another look at growth"}
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = `Week Number`)) + 
-     geom_point(aes(y = `cases`,
-                    x = `Week Number`)) +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = `Week Number`),
+  geom_line(aes(y = `cases`,
+                x = `Week Number`)) + 
+  geom_point(aes(y = `cases`,
+                 x = `Week Number`)) +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = `Week Number`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -583,41 +583,41 @@ epi <- ggplot(data = US)
 
 ```{r, fig.cap="Epi curve 1", echo=FALSE}
 epi + geom_point(aes(x = date,
-              y = `Confirmed new cases`))+
-     geom_smooth(aes(x = date,
-              y = `Confirmed new cases`),
+                     y = `Confirmed new cases`))+
+  geom_smooth(aes(x = date,
+                  y = `Confirmed new cases`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19")
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19")
 ```
 
 ```{r, fig.cap="Epi curve 2, traditional", echo=FALSE}
 epi + geom_col(aes(x=date,
                    y=`Confirmed new cases`),
                fill= "blue") +
-     geom_smooth(aes(x=date,
-                   y=`Confirmed new cases`),
+  geom_smooth(aes(x=date,
+                  y=`Confirmed new cases`),
               method = "loess",
               formula = y ~ x,
-                 color = "red") +
-     labs(y = "Cases",
-          title = "Number of New Cases of COVID-19 Reported")
+              color = "red") +
+  labs(y = "Cases",
+       title = "Number of New Cases of COVID-19 Reported")
 ```
 
 ```{r, fig.cap="Cumulative cases", echo=FALSE}
 epi + geom_point(aes(x = date,
-              y = `total Confirmed Cases`))+
-     geom_smooth(aes(x = date,
-              y = `total Confirmed Cases`),
+                     y = `total Confirmed Cases`))+
+  geom_smooth(aes(x = date,
+                  y = `total Confirmed Cases`),
               method = "loess",
               formula = y ~ x,
               color = "red",
               fill = "blue") +
-     labs(y = "Cumulative number of cases",
-          title = "Cumulative Number of Cases of COVID-19 Reported")
+  labs(y = "Cumulative number of cases",
+       title = "Cumulative Number of Cases of COVID-19 Reported")
 ```
 
 ```{r, fig.cap="Growth Rate", echo=FALSE}
@@ -626,11 +626,11 @@ gr <- US %>%
 
 ggplot(data = gr) +
   geom_line(aes(y = `Confirmed new cases`,
-                    x = `total Confirmed Cases`)) +
+                x = `total Confirmed Cases`)) +
   scale_x_log10() +
   scale_y_log10() +
   geom_smooth(aes(y = `Confirmed new cases`,
-                    x = `total Confirmed Cases`),
+                  x = `total Confirmed Cases`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Daily Growth Rate",
@@ -644,7 +644,7 @@ ggplot(data = gr) +
                 y = `total Confirmed Cases`)) +
   scale_y_log10() +
   geom_smooth(aes(x = `date`,
-                    y = `total Confirmed Cases`),
+                  y = `total Confirmed Cases`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Daily Growth Rate",
@@ -655,21 +655,21 @@ ggplot(data = gr) +
 
 ```{r, fig.cap="stable weekly growth rate", echo=FALSE}
 gr <- US %>%
-     group_by(`Week Number`) %>%
-     summarise(cases = sum(`Confirmed new cases`),
-               cs = max(`total Confirmed Cases`),
-               count = n()) %>%
-     filter(cases != 0)
+  group_by(`Week Number`) %>%
+  summarise(cases = sum(`Confirmed new cases`),
+            cs = max(`total Confirmed Cases`),
+            count = n()) %>%
+  filter(cases != 0)
 
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = cs)) + 
-     geom_point(aes(y = `cases`,
-                    x = cs)) +
-     scale_x_log10() +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = cs),
+  geom_line(aes(y = `cases`,
+                x = cs)) + 
+  geom_point(aes(y = `cases`,
+                 x = cs)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = cs),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
@@ -679,13 +679,13 @@ ggplot(data = gr) +
 
 ```{r, echo=FALSE, fig.cap="Another look at growth"}
 ggplot(data = gr) +
-     geom_line(aes(y = `cases`,
-                   x = `Week Number`)) + 
-     geom_point(aes(y = `cases`,
-                    x = `Week Number`)) +
-     scale_y_log10() +
-     geom_smooth(aes(y = `cases`,
-                     x = `Week Number`),
+  geom_line(aes(y = `cases`,
+                x = `Week Number`)) + 
+  geom_point(aes(y = `cases`,
+                 x = `Week Number`)) +
+  scale_y_log10() +
+  geom_smooth(aes(y = `cases`,
+                  x = `Week Number`),
               method = "loess",
               formula = y ~ x) +
   labs(title = "Weekly Growth Rate",
