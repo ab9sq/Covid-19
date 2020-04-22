@@ -17,7 +17,7 @@ readWHO <- function(path = "./data/WHO/",
      rawData$New[is.na(rawData$New)] <- FALSE
      rawData$`Confirmed new cases`[is.na(rawData$`Confirmed new cases`)] <- 0
      rawData$`total new deaths`[is.na(rawData$`total new deaths`)] <- 0
-     rawData$`Week Number` <- week(rawData$date)
+     rawData$`Week Number` <- epiweek(rawData$date)
      return(rawData)
 }
 
