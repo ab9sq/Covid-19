@@ -58,7 +58,7 @@ WHOClean <- function(dataSet = WHO){
      return(dataSet)
 }
 
-endReport <- 92  # 91
+endReport <- 98  # 92
 WHO <- NULL
 startDay <- as.Date("21-Jan-2020", format = "%d-%b-%Y")
 
@@ -81,28 +81,29 @@ for (i in 1:endReport) {
 WHO <- WHOClean(dataSet = WHO)
 
 # WHO
- # temp <- table(WHO$`Country Territory area`,
- #       useNA = "ifany")
- # temp[order(temp,
- #            decreasing = TRUE)]
- # temp[temp == 1]
- # length(temp)
- #
- # table(WHO$date,
- #       useNA = "ifany")
- # length(table(WHO$date,
- #              useNA = "ifany"))
- #
- # table(WHO$report,
- #       useNA = "ifany")
- # length(table(WHO$report,
- #              useNA = "ifany"))
- #
- # temp <- table(WHO$Region,
- #       useNA = "ifany")
- # temp[order(temp,
- #            decreasing = TRUE)]
+#  temp <- table(WHO$`Country Territory area`,
+#        useNA = "ifany")
+#  temp[order(temp,
+#             decreasing = TRUE)]
+#  temp[temp == 1]
+#  length(temp)
+#
+#  table(WHO$date,
+#        useNA = "ifany")
+#  length(table(WHO$date,
+#               useNA = "ifany"))
+#
+#  table(WHO$report,
+#        useNA = "ifany")
+#  length(table(WHO$report,
+#               useNA = "ifany"))
+#
+#  temp <- table(WHO$Region,
+#        useNA = "ifany")
+#  temp[order(temp,
+#             decreasing = TRUE)]
 # rm (temp)
+
 rm(endReport)
 rm(fileName)
 rm(i)
