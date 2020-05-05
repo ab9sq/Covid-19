@@ -47,6 +47,10 @@ WHOClean <- function(dataSet = WHO){
        "Lao People's Democratic Republic"
      dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Dominican")] <-
        "Dominican Republic"
+     dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Mexio")] <-
+             "Mexico"
+     dataSet$`Country Territory area`[which(dataSet$`Country Territory area` == "Irab")] <-
+             "Iran"
 
 
 
@@ -58,7 +62,7 @@ WHOClean <- function(dataSet = WHO){
      return(dataSet)
 }
 
-endReport <- 101  # 100
+endReport <- 106  # 101
 WHO <- NULL
 startDay <- as.Date("21-Jan-2020", format = "%d-%b-%Y")
 
@@ -81,28 +85,28 @@ for (i in 1:endReport) {
 WHO <- WHOClean(dataSet = WHO)
 
 # WHO
-#  temp <- table(WHO$`Country Territory area`,
-#        useNA = "ifany")
-#  temp[order(temp,
-#             decreasing = TRUE)]
-#  temp[temp == 1]
-#  length(temp)
+#   temp <- table(WHO$`Country Territory area`,
+#         useNA = "ifany")
+#   temp[order(temp,
+#              decreasing = TRUE)]
+#   temp[temp == 1]
+#   length(temp)
 #
-#  table(WHO$date,
-#        useNA = "ifany")
-#  length(table(WHO$date,
-#               useNA = "ifany"))
+#   table(WHO$date,
+#         useNA = "ifany")
+#   length(table(WHO$date,
+#                useNA = "ifany"))
 #
-#  table(WHO$report,
-#        useNA = "ifany")
-#  length(table(WHO$report,
-#               useNA = "ifany"))
+#   table(WHO$report,
+#         useNA = "ifany")
+#   length(table(WHO$report,
+#                useNA = "ifany"))
 #
-#  temp <- table(WHO$Region,
-#        useNA = "ifany")
-#  temp[order(temp,
-#             decreasing = TRUE)]
-# rm (temp)
+#   temp <- table(WHO$Region,
+#         useNA = "ifany")
+#   temp[order(temp,
+#              decreasing = TRUE)]
+#  rm (temp)
 
 rm(endReport)
 rm(fileName)
