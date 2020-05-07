@@ -60,7 +60,6 @@ germany <- WHO %>%
 
 ## Create data set for US
 
-
 ```{r, echo=TRUE}
 US <- WHO %>%
   filter(WHO$`Country Territory area` == "United States of America")
@@ -89,7 +88,6 @@ spain <- WHO %>%
 india <- WHO %>%
   filter(WHO$`Country Territory area` == "India")
 ```
-
 
 # Charts and graphs
 ## World Wide
