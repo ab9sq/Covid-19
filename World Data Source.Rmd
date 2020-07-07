@@ -26,7 +26,7 @@ library(lubridate)
 epi_info <- read_csv(file = "./data/Our World Data/full_data.csv")
 locations <- read_csv(file = "./data/Our World Data/locations.csv")
 ```
-# Country data
+## Country Data
 ```{r}
 US <- epi_info %>%
      filter(location == "United States")
@@ -38,10 +38,52 @@ Germany <- epi_info %>%
      filter(location == "Germany")
 Italy <- epi_info %>%
      filter(location == "Italy")
+UK <- epi_info %>%
+     filter(location == "United Kingdom")
+NonWorld <- epi_info %>%
+     filter(location != "World")
 ```
 
+# Plot
+
+## World
 ```{r, fig.cap= "World Data"}
 ggplot(aes(x = date, y=new_cases), data = World) +
      geom_point() 
 ```
 
+## Country
+```{r, fig.cap="non World"}
+ggplot(aes(x = date, y=new_cases), data = NonWorld) +
+     geom_point() 
+```
+
+## US
+```{r, fig.cap= "US"}
+ggplot(aes(x = date, y=new_cases), data = US) +
+     geom_point() 
+```
+
+## China
+```{r, fig.cap= "China"}
+ggplot(aes(x = date, y=new_cases), data = China) +
+     geom_point() 
+```
+
+## Italy
+```{r, fig.cap= "Italy"}
+ggplot(aes(x = date, y=new_cases), data = Italy) +
+     geom_point() 
+```
+
+## Germany
+```{r, fig.cap= "Germany"}
+ggplot(aes(x = date, y=new_cases), data = Germany) +
+     geom_point() 
+```
+
+## UK
+```{r, fig.cap= "UK"}
+ggplot(aes(x = date, y=new_cases), data = UK) +
+     geom_point() 
+```
