@@ -6,8 +6,9 @@ output:
   pdf_document: 
     toc: yes
     toc_depth: 4
-    fig_height: 6
+    fig_height: 6.5
     fig_caption: yes
+    fig_width: 6.5
   html_document: 
     toc: yes
     toc_depth: 4
@@ -21,18 +22,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Libraries
-```{r}
+```{r,echo = TRUE}
 library(tidyverse)
 library(lubridate)
 ```
 
 # Read Data
-```{r}
+```{r,echo = TRUE}
 epi_info <- read_csv(file = "./data/Our World Data/full_data.csv")
 locations <- read_csv(file = "./data/Our World Data/locations.csv")
 ```
 ## Country Data
-```{r}
+```{r,echo = TRUE}
 US <- epi_info %>%
      filter(location == "United States")%>%
   filter(new_cases >= 0)
