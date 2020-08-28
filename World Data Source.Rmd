@@ -67,6 +67,9 @@ Mexico <- epi_info %>%
 Ireland <- epi_info %>%
      filter(location == "Ireland")%>%
   filter(new_cases > 0)
+CostaRica <- epi_info %>%
+     filter(location == "Costa Rica")%>%
+  filter(new_cases > 0)
 
 ```
 
@@ -438,4 +441,39 @@ ggplot(aes(x = date, y=new_cases), data = Canada) +
 <!--        y = "Total Cases (log)") -->
 <!-- ``` -->
 
-##
+## Costa Rica
+
+```{r, fig.cap= "Costa Rica"}
+ggplot(aes(x = date, y=new_cases), data = CostaRica) +
+     geom_point() 
+```
+```{r, fig.cap= "Costa Rica with trend line"}
+ggplot(aes(x = date, y=new_cases), data = CostaRica) +
+     geom_point() +
+  geom_smooth(method = "loess",
+              formula = y~x)
+```
+
+<!-- ```{r, fig.cap="Costa Rica rates 1"} -->
+
+<!-- ggplot(data = CostaRica, -->
+<!--        aes(y = new_cases, -->
+<!--            x = total_cases)) + -->
+<!--   geom_line() + -->
+<!--   scale_x_log10() + -->
+<!--   scale_y_log10() + -->
+<!--   geom_smooth() -->
+<!-- ``` -->
+<!-- ```{r, fig.cap="Costa Rica rates 2"} -->
+<!-- ggplot(data = CostaRica, -->
+<!--        aes(y = new_cases, -->
+<!--            x = total_cases)) + -->
+<!--   geom_line() +  -->
+<!--   geom_point() + -->
+<!--   scale_y_log10() + -->
+<!--   geom_smooth(method = "loess", -->
+<!--               formula = y ~ x) + -->
+<!--   labs(title = "Growth Rate", -->
+<!--        x = "date", -->
+<!--        y = "Total Cases (log)") -->
+<!-- ``` -->
