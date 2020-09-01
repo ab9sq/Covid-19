@@ -35,40 +35,42 @@ locations <- read_csv(file = "./data/Our World Data/locations.csv")
 ## Country Data
 ```{r,echo = TRUE}
 US <- epi_info %>%
-     filter(location == "United States")%>%
+  filter(location == "United States")%>%
   filter(new_cases > 0)
 China <- epi_info %>%
-     filter(location == "China")%>%
-  filter(new_cases > 0)
+  filter(location == "China")%>%
+  filter(new_cases > 0) %>%
+  filter(new_cases < 5000)
 World <- epi_info %>%
-     filter(location == "World")%>%
+  filter(location == "World")%>%
   filter(new_cases > 0)
 Germany <- epi_info %>%
-     filter(location == "Germany")%>%
+  filter(location == "Germany")%>%
   filter(new_cases > 0)
 Italy <- epi_info %>%
-     filter(location == "Italy")%>%
+  filter(location == "Italy")%>%
   filter(new_cases >= 0)
 UK <- epi_info %>%
-     filter(location == "United Kingdom") %>%
+  filter(location == "United Kingdom") %>%
   filter(new_cases > 0)
 Spain <- epi_info %>%
   filter(location == "Spain") %>%
   filter(new_cases > 0)
 NonWorld <- epi_info %>%
-     filter(location != "World")%>%
+  filter(location != "World")%>%
   filter(new_cases > 0)
 Canada <- epi_info %>%
-     filter(location == "Canada")%>%
-  filter(new_cases > 0)
+  filter(location == "Canada")%>%
+  filter(new_cases > 0) %>%
+  filter(new_cases < 2500)
 Mexico <- epi_info %>%
-     filter(location == "Mexico")%>%
+  filter(location == "Mexico")%>%
   filter(new_cases > 0)
 Ireland <- epi_info %>%
-     filter(location == "Ireland")%>%
+  filter(location == "Ireland")%>%
   filter(new_cases > 0)
 CostaRica <- epi_info %>%
-     filter(location == "Costa Rica")%>%
+  filter(location == "Costa Rica")%>%
   filter(new_cases > 0)
 
 ```
@@ -78,11 +80,11 @@ CostaRica <- epi_info %>%
 ## World
 ```{r, fig.cap= "World wide new cases"}
 ggplot(aes(x = date, y=new_cases), data = World) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "World Wide New Cases with trend line"}
 ggplot(aes(x = date, y=new_cases), data = World) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -144,11 +146,11 @@ ggplot(data = World,
 ### US
 ```{r, fig.cap= "US"}
 ggplot(aes(x = date, y=new_cases), data = US) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "US with trend line"}
 ggplot(aes(x = date, y=new_cases), data = US) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -180,11 +182,11 @@ ggplot(aes(x = date, y=new_cases), data = US) +
 ### China
 ```{r, fig.cap= "China"}
 ggplot(aes(x = date, y=new_cases), data = China) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "China with trend line"}
 ggplot(aes(x = date, y=new_cases), data = China) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -216,11 +218,11 @@ ggplot(aes(x = date, y=new_cases), data = China) +
 ### Italy
 ```{r, fig.cap= "Italy"}
 ggplot(aes(x = date, y=new_cases), data = Italy) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "Italy with trend line"}
 ggplot(aes(x = date, y=new_cases), data = Italy) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -252,11 +254,11 @@ ggplot(aes(x = date, y=new_cases), data = Italy) +
 ### Germany
 ```{r, fig.cap= "Germany"}
 ggplot(aes(x = date, y=new_cases), data = Germany) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "Germany with trend line"}
 ggplot(aes(x = date, y=new_cases), data = Germany) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -288,11 +290,11 @@ ggplot(aes(x = date, y=new_cases), data = Germany) +
 ### UK
 ```{r, fig.cap= "UK"}
 ggplot(aes(x = date, y=new_cases), data = UK) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "UK with trend line"}
 ggplot(aes(x = date, y=new_cases), data = UK) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -322,13 +324,13 @@ ggplot(aes(x = date, y=new_cases), data = UK) +
 <!-- ``` -->
 
 ### Ireland
-```{r, fig.cap= "Spain"}
+```{r, fig.cap= "Ireland"}
 ggplot(aes(x = date, y=new_cases), data = Ireland) +
-     geom_point() 
+  geom_point() 
 ```
-```{r, fig.cap= "Spain with trend line"}
+```{r, fig.cap= "Ireland with trend line"}
 ggplot(aes(x = date, y=new_cases), data = Ireland) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -336,11 +338,11 @@ ggplot(aes(x = date, y=new_cases), data = Ireland) +
 ### Spain
 ```{r, fig.cap= "Spain"}
 ggplot(aes(x = date, y=new_cases), data = Spain) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "Spain with trend line"}
 ggplot(aes(x = date, y=new_cases), data = Spain) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -372,11 +374,11 @@ ggplot(aes(x = date, y=new_cases), data = Spain) +
 ### Mexico
 ```{r, fig.cap= "Mexico"}
 ggplot(aes(x = date, y=new_cases), data = Mexico) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "Mexico with trend line"}
 ggplot(aes(x = date, y=new_cases), data = Mexico) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -408,11 +410,11 @@ ggplot(aes(x = date, y=new_cases), data = Mexico) +
 ### Canada
 ```{r, fig.cap= "Canada"}
 ggplot(aes(x = date, y=new_cases), data = Canada) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "Canada with trend line"}
 ggplot(aes(x = date, y=new_cases), data = Canada) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
@@ -445,11 +447,11 @@ ggplot(aes(x = date, y=new_cases), data = Canada) +
 
 ```{r, fig.cap= "Costa Rica"}
 ggplot(aes(x = date, y=new_cases), data = CostaRica) +
-     geom_point() 
+  geom_point() 
 ```
 ```{r, fig.cap= "Costa Rica with trend line"}
 ggplot(aes(x = date, y=new_cases), data = CostaRica) +
-     geom_point() +
+  geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
