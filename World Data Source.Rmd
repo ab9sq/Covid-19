@@ -15,6 +15,12 @@ output:
     fig_height: 6.5
     fig_caption: yes
     fig_width: 6.5
+  word_document: 
+    toc: yes
+    toc_depth: 4
+    fig_width: 5
+    fig_height: 5
+    fig_caption: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -22,33 +28,33 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Libraries
-```{r,echo = TRUE}
+```{r,echo = TRUE, include=FALSE}
 library(tidyverse)
 library(lubridate)
 ```
 
-# Read Data
-```{r,echo = TRUE}
+<!-- # Read Data -->
+```{r,echo = FALSE, include=FALSE}
 epi_info <- read_csv(file = "./data/Our World Data/full_data.csv")
 locations <- read_csv(file = "./data/Our World Data/locations.csv")
 ```
-## Country Data
-```{r,echo = TRUE}
+<!-- ## Country Data -->
+```{r,echo = FALSE, include=FALSE}
 US <- epi_info %>%
-  filter(location == "United States")%>%
+  filter(location == "United States") %>%
   filter(new_cases > 0)
 China <- epi_info %>%
-  filter(location == "China")%>%
+  filter(location == "China") %>%
   filter(new_cases > 0) %>%
   filter(new_cases < 5000)
 World <- epi_info %>%
-  filter(location == "World")%>%
+  filter(location == "World") %>%
   filter(new_cases > 0)
 Germany <- epi_info %>%
-  filter(location == "Germany")%>%
+  filter(location == "Germany") %>%
   filter(new_cases > 0)
 Italy <- epi_info %>%
-  filter(location == "Italy")%>%
+  filter(location == "Italy") %>%
   filter(new_cases >= 0)
 UK <- epi_info %>%
   filter(location == "United Kingdom") %>%
@@ -56,48 +62,50 @@ UK <- epi_info %>%
 Spain <- epi_info %>%
   filter(location == "Spain") %>%
   filter(new_cases > 0)
-NonWorld <- epi_info %>%
-  filter(location != "World")%>%
-  filter(new_cases > 0)
 Canada <- epi_info %>%
-  filter(location == "Canada")%>%
+  filter(location == "Canada") %>%
   filter(new_cases > 0) %>%
   filter(new_cases < 2500)
 Mexico <- epi_info %>%
-  filter(location == "Mexico")%>%
+  filter(location == "Mexico") %>%
   filter(new_cases > 0)
 Ireland <- epi_info %>%
-  filter(location == "Ireland")%>%
+  filter(location == "Ireland") %>%
   filter(new_cases > 0)
 CostaRica <- epi_info %>%
-  filter(location == "Costa Rica")%>%
+  filter(location == "Costa Rica") %>%
   filter(new_cases > 0)
+India <- epi_info %>%
+  filter(location == "India") %>%
+  filter(new_cases > 0)
+
 
 ```
 
 # Plot
 
 ## World
-```{r, fig.cap= "World wide new cases"}
+```{r, fig.cap= "World wide new cases", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = World) +
   geom_point() 
 ```
-```{r, fig.cap= "World Wide New Cases with trend line"}
+```{r, fig.cap= "World Wide New Cases with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = World) +
   geom_point() +
   geom_smooth(method = "loess",
               formula = y~x)
 ```
-```{r, fig.cap="World wide rates 1"}
+```{r, fig.cap="World wide rates 1", echo=FALSE}
 ggplot(data = World,
        aes(y = new_cases,
            x = total_cases)) +
   geom_line() +
   scale_x_log10() +
   scale_y_log10() +
-  geom_smooth()
+  geom_smooth(method = "loess",
+              formula = y~x)
 ```
-```{r, fig.cap="World Wide rates 2"}
+```{r, fig.cap="World Wide rates 2", echo=FALSE}
 
 ggplot(data = World,
        aes(y = new_cases,
@@ -112,43 +120,13 @@ ggplot(data = World,
        y = "Total Cases (log)")
 ```
 
-<!-- ## Countries -->
-<!-- ```{r, fig.cap="non World"} -->
-<!-- ggplot(aes(x = date, y=new_cases), data = NonWorld) + -->
-<!--      geom_point()  -->
-<!-- ``` -->
-<!-- ```{r, fig.cap="Countries rates 1"} -->
-
-<!-- ggplot(data = NonWorld, -->
-<!--        aes(y = new_cases, -->
-<!--            x = total_cases)) + -->
-<!--   geom_line() + -->
-<!--   scale_x_log10() + -->
-<!--   scale_y_log10() + -->
-<!--   geom_smooth() -->
-<!-- ``` -->
-<!-- ```{r, fig.cap="Countries Rates 2"} -->
-<!-- ggplot(data = NonWorld, -->
-<!--        aes(y = new_cases, -->
-<!--            x = total_cases)) + -->
-<!--   geom_line() +  -->
-<!--   geom_point() + -->
-<!--   scale_y_log10() + -->
-<!--   geom_smooth(method = "loess", -->
-<!--               formula = y ~ x) + -->
-<!--   labs(title = "Growth Rate", -->
-<!--        x = "date", -->
-<!--        y = "Total Cases (log)") -->
-<!-- ``` -->
-
-
 ## Country
 ### US
-```{r, fig.cap= "US"}
+```{r, fig.cap= "US", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = US) +
   geom_point() 
 ```
-```{r, fig.cap= "US with trend line"}
+```{r, fig.cap= "US with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = US) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -180,11 +158,11 @@ ggplot(aes(x = date, y=new_cases), data = US) +
 <!-- ``` -->
 
 ### China
-```{r, fig.cap= "China"}
+```{r, fig.cap= "China", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = China) +
   geom_point() 
 ```
-```{r, fig.cap= "China with trend line"}
+```{r, fig.cap= "China with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = China) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -216,11 +194,11 @@ ggplot(aes(x = date, y=new_cases), data = China) +
 <!-- ``` -->
 
 ### Italy
-```{r, fig.cap= "Italy"}
+```{r, fig.cap= "Italy", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Italy) +
   geom_point() 
 ```
-```{r, fig.cap= "Italy with trend line"}
+```{r, fig.cap= "Italy with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Italy) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -252,11 +230,11 @@ ggplot(aes(x = date, y=new_cases), data = Italy) +
 <!-- ``` -->
 
 ### Germany
-```{r, fig.cap= "Germany"}
+```{r, fig.cap= "Germany", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Germany) +
   geom_point() 
 ```
-```{r, fig.cap= "Germany with trend line"}
+```{r, fig.cap= "Germany with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Germany) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -288,11 +266,11 @@ ggplot(aes(x = date, y=new_cases), data = Germany) +
 <!-- ``` -->
 
 ### UK
-```{r, fig.cap= "UK"}
+```{r, fig.cap= "UK", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = UK) +
   geom_point() 
 ```
-```{r, fig.cap= "UK with trend line"}
+```{r, fig.cap= "UK with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = UK) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -324,11 +302,11 @@ ggplot(aes(x = date, y=new_cases), data = UK) +
 <!-- ``` -->
 
 ### Ireland
-```{r, fig.cap= "Ireland"}
+```{r, fig.cap= "Ireland", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Ireland) +
   geom_point() 
 ```
-```{r, fig.cap= "Ireland with trend line"}
+```{r, fig.cap= "Ireland with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Ireland) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -336,11 +314,11 @@ ggplot(aes(x = date, y=new_cases), data = Ireland) +
 ```
 
 ### Spain
-```{r, fig.cap= "Spain"}
+```{r, fig.cap= "Spain", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Spain) +
   geom_point() 
 ```
-```{r, fig.cap= "Spain with trend line"}
+```{r, fig.cap= "Spain with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Spain) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -372,11 +350,11 @@ ggplot(aes(x = date, y=new_cases), data = Spain) +
 <!-- ``` -->
 
 ### Mexico
-```{r, fig.cap= "Mexico"}
+```{r, fig.cap= "Mexico", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Mexico) +
   geom_point() 
 ```
-```{r, fig.cap= "Mexico with trend line"}
+```{r, fig.cap= "Mexico with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Mexico) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -408,11 +386,11 @@ ggplot(aes(x = date, y=new_cases), data = Mexico) +
 <!-- ``` -->
 
 ### Canada
-```{r, fig.cap= "Canada"}
+```{r, fig.cap= "Canada", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Canada) +
   geom_point() 
 ```
-```{r, fig.cap= "Canada with trend line"}
+```{r, fig.cap= "Canada with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Canada) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -445,11 +423,11 @@ ggplot(aes(x = date, y=new_cases), data = Canada) +
 
 ## Costa Rica
 
-```{r, fig.cap= "Costa Rica"}
+```{r, fig.cap= "Costa Rica", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = CostaRica) +
   geom_point() 
 ```
-```{r, fig.cap= "Costa Rica with trend line"}
+```{r, fig.cap= "Costa Rica with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = CostaRica) +
   geom_point() +
   geom_smooth(method = "loess",
@@ -479,3 +457,41 @@ ggplot(aes(x = date, y=new_cases), data = CostaRica) +
 <!--        x = "date", -->
 <!--        y = "Total Cases (log)") -->
 <!-- ``` -->
+
+## India
+
+```{r, fig.cap= "India", echo=FALSE}
+ggplot(aes(x = date, y=new_cases), data = India) +
+  geom_point() 
+```
+```{r, fig.cap= "India with trend line", echo=FALSE}
+ggplot(aes(x = date, y=new_cases), data = India) +
+  geom_point() +
+  geom_smooth(method = "loess",
+              formula = y~x)
+```
+
+<!-- ```{r, fig.cap="India rates 1"} -->
+
+<!-- ggplot(data = India, -->
+<!--        aes(y = new_cases, -->
+<!--            x = total_cases)) + -->
+<!--   geom_line() + -->
+<!--   scale_x_log10() + -->
+<!--   scale_y_log10() + -->
+<!--   geom_smooth() -->
+<!-- ``` -->
+<!-- ```{r, fig.cap="India rates 2"} -->
+<!-- ggplot(data = India, -->
+<!--        aes(y = new_cases, -->
+<!--            x = total_cases)) + -->
+<!--   geom_line() +  -->
+<!--   geom_point() + -->
+<!--   scale_y_log10() + -->
+<!--   geom_smooth(method = "loess", -->
+<!--               formula = y ~ x) + -->
+<!--   labs(title = "Growth Rate", -->
+<!--        x = "date", -->
+<!--        y = "Total Cases (log)") -->
+<!-- ``` -->
+

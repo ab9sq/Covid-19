@@ -2,7 +2,9 @@
 title: "Testing"
 author: "Nick Lauerman"
 date: "3/27/2020"
-output: html_document
+output:
+  word_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Libraries
-```{r}
+```{r, include=FALSE}
 library(tidyverse)
 ```
 
