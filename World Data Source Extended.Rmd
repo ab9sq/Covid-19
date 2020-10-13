@@ -1,9 +1,9 @@
 ---
 title: "Data Explorer for Our World in Data COVID dataset"
 author: "Nick Lauerman"
-date: "7/7/2020"
+date: "as of 13-October-2020"
 output: 
-  html_document: 
+  word_document: 
     toc: yes
     toc_depth: 4
     fig_width: 6.5
@@ -15,7 +15,7 @@ output:
     fig_height: 6.5
     fig_width: 6.5
     fig_caption: yes
-  word_document: 
+  html_document: 
     toc: yes
     toc_depth: 4
     fig_width: 6.5
@@ -158,7 +158,7 @@ ggplot(aes(x = date, y=new_cases), data = US) +
 
 ```{r, fig.cap= "US total cases", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = US) +
-  geom_point("US total cases")  +
+  geom_point()  +
   ggtitle("US total cases")
 ```
 
@@ -301,179 +301,244 @@ ggplot(aes(x = date, y=total_deaths), data = India) +
 ### China
 ```{r Other China, fig.cap= "China", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = China) +
-  geom_point() 
+  geom_point() +
+  ggtitle("China")
 ```
+
 ```{r, fig.cap= "China with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = China) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x)+
+  ggtitle() +
+  ggtitle("China with trend line")
 ```
+
 ```{r, fig.cap= "China total cases", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = China) +
-  geom_point() 
+  geom_point() +
+  ggtitle("China total cases")
 ```
+
 ```{r, fig.cap= "China total Cases with trend line", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = China) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) +
+  ggtitle("China total Cases with trend line")
 ```
+
 ```{r, fig.cap="China new deaths", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = China) +
-  geom_point()
+  geom_point() +
+  ggtitle("China new deaths",)
 ```
+
 ```{r, fig.cap="China new deaths with trending", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = China) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) +
+  ggtitle("China new deaths with trending")
 ```
+
 ```{r, fig.cap= "China total deaths", echo=FALSE}
 ggplot(aes(x = date, y=total_deaths), data = China) +
-  geom_point() 
+  geom_point() +
+  ggtitle("China total deaths")
 ```
 
 ### Italy
 ```{r Italy, fig.cap= "Italy", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Italy) +
-  geom_point() 
+  geom_point() +
+  ggtitle("Italy")
 ```
+
 ```{r, fig.cap= "Italy with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Italy) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) +
+  ggtitle("Italy with trend line")
 ```
+
 ```{r, fig.cap= "Italy total cases", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Italy) +
-  geom_point() 
+  geom_point("Italy total cases") 
 ```
+
 ```{r, fig.cap= "Italy total Cases with trend line", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Italy) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) +
+  ggtitle("Italy total Cases with trend line")
 ```
+
 ```{r, fig.cap="Italy new deaths", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = Italy) +
-  geom_point()
+  geom_point()  +
+  ggtitle("Italy new deaths")
 ```
+
 ```{r, fig.cap="Italy new deaths with trending", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = Italy) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x)  +
+  ggtitle("Italy new deaths with trending")
 ```
+
 ```{r, fig.cap= "Italy total deaths", echo=FALSE}
 ggplot(aes(x = date, y=total_deaths), data = Italy) +
-  geom_point() 
+  geom_point()  +
+  ggtitle("Italy total deaths")
 ```
 
 ### Spain
 ```{r Spain, fig.cap= "Spain", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Spain) +
-  geom_point() 
+  geom_point() + 
+  ggtitle("Spain")
 ```
+
 ```{r, fig.cap= "Spain with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Spain) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) + 
+  ggtitle("Spain with trend line")
 ```
+
 ```{r, fig.cap= "Spain total cases", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Spain) +
-  geom_point() 
+  geom_point() + 
+  ggtitle("Spain total cases")
 ```
+
 ```{r, fig.cap= "Spain total Cases with trend line", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Spain) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) + 
+  ggtitle("Spain total Cases with trend line")
 ```
+
 ```{r, fig.cap="Spain new deaths", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = Spain) +
-  geom_point()
+  geom_point() + 
+  ggtitle("Spain new deaths")
 ```
+
 ```{r, fig.cap="Spain new deaths with trending", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = Spain) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) + 
+  ggtitle("Spain new deaths with trending")
 ```
+
 ```{r, fig.cap= "Spain total deaths", echo=FALSE}
 ggplot(aes(x = date, y=total_deaths), data = Spain) +
-  geom_point() 
+  geom_point() + 
+  ggtitle("Spain total deaths")
 ```
 
 ### Mexico
 ```{r Mexico, fig.cap= "Mexico", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Mexico) +
-  geom_point() 
+  geom_point() +
+  ggtitle("Mexico")
 ```
+
 ```{r, fig.cap= "Mexico with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Mexico) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) +
+  ggtitle("Mexico with trend line")
 ```
+
 ```{r, fig.cap= "Mexico total cases", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Mexico) +
-  geom_point() 
+  geom_point()  +
+  ggtitle("Mexico total cases")
 ```
+
 ```{r, fig.cap= "Mexico total Cases with trend line", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Mexico) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) +
+  ggtitle( "Mexico total Cases with trend line")
 ```
+
 ```{r, fig.cap="Mexico new deaths", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = Mexico) +
-  geom_point()
+  geom_point() +
+  ggtitle("Mexico new deaths")
 ```
+
 ```{r, fig.cap="Mexico new deaths with trending", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = Mexico) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) +
+  ggtitle("Mexico new deaths with trending")
 ```
+
 ```{r, fig.cap= "Mexico total deaths", echo=FALSE}
 ggplot(aes(x = date, y=total_deaths), data = Mexico) +
-  geom_point() 
+  geom_point()  +
+  ggtitle("Mexico total deaths")
 ```
 
 ### Canada
 ```{r Canada, fig.cap= "Canada", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Canada) +
-  geom_point() 
+  geom_point() +
+  ggtitle("Canada")
 ```
+
 ```{r, fig.cap= "Canada with trend line", echo=FALSE}
 ggplot(aes(x = date, y=new_cases), data = Canada) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x) +
+  ggtitle("Canada with trend line")
 ```
+
 ```{r, fig.cap= "Canada total cases", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Canada) +
-  geom_point() 
+  geom_point()  +
+  ggtitle("Canada total cases")
 ```
+
 ```{r, fig.cap= "Canada total Cases with trend line", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Canada) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x)  +
+  ggtitle("Canada total Cases with trend line")
 ```
+
 ```{r, fig.cap="Canada new deaths", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = Canada) +
-  geom_point()
+  geom_point()  +
+  ggtitle("Canada new deaths")
 ```
+
 ```{r, fig.cap="Canada new deaths with trending", echo=FALSE}
 ggplot(aes(x = date, y=new_deaths), data = Canada) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)
+              formula = y~x)  +
+  ggtitle("Canada new deaths with trending")
 ```
+
 ```{r, fig.cap= "Canada total deaths", echo=FALSE}
 ggplot(aes(x = date, y=total_deaths), data = Canada) +
-  geom_point() 
+  geom_point()  +
+  ggtitle("Canada total deaths")
 ```
