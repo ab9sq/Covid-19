@@ -364,7 +364,8 @@ ggplot(aes(x = date, y=new_cases), data = Italy) +
 
 ```{r, fig.cap= "Italy total cases", echo=FALSE}
 ggplot(aes(x = date, y=total_cases), data = Italy) +
-  geom_point("Italy total cases") 
+  geom_point() +
+  ggtitle("Italy total cases")
 ```
 
 ```{r, fig.cap= "Italy total Cases with trend line", echo=FALSE}
