@@ -309,8 +309,7 @@ ggplot(aes(x = date, y=new_cases), data = China) +
 ggplot(aes(x = date, y=new_cases), data = China) +
   geom_point() +
   geom_smooth(method = "loess",
-              formula = y~x)+
-  ggtitle() +
+              formula = y~x) +
   ggtitle("China with trend line")
 ```
 
