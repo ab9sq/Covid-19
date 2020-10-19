@@ -1,0 +1,23 @@
+---
+title: "Stare data"
+author: "Nick Lauerman"
+date: "19-Oct-2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Libraries
+```{r libraries}
+# ```{r libraries,echo = TRUE, include=FALSE}
+library(tidyverse)
+library(lubridate)
+```
+
+# read data
+```{r}
+covid <- read_csv(file = "./data/covid tracking project/all-states-history.csv")
+```
+
