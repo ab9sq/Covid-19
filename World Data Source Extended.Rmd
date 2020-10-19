@@ -42,17 +42,17 @@ locations <- read_csv(file = "./data/Our World Data/locations.csv")
 ```{r,echo = FALSE, include=FALSE}
 US <- epi_info %>%
   filter(location == "United States") %>%
-  filter(new_cases > 0)
+  filter(new_cases >= 0)
 China <- epi_info %>%
   filter(location == "China") %>%
-  filter(new_cases > 0) %>%
+  filter(new_cases >= 0) %>%
   filter(new_cases < 5000)
 World <- epi_info %>%
   filter(location == "World") %>%
-  filter(new_cases > 0)
+  filter(new_cases >= 0)
 Germany <- epi_info %>%
   filter(location == "Germany") %>%
-  filter(new_cases > 0)
+  filter(new_cases >= 0)
 Italy <- epi_info %>%
   filter(location == "Italy") %>%
   filter(new_cases >= 0)
@@ -64,20 +64,20 @@ Spain <- epi_info %>%
   filter(new_cases > 0)
 Canada <- epi_info %>%
   filter(location == "Canada") %>%
-  filter(new_cases > 0) %>%
+  filter(new_cases >= 0) %>%
   filter(new_cases < 2500)
 Mexico <- epi_info %>%
   filter(location == "Mexico") %>%
-  filter(new_cases > 0)
+  filter(new_cases >= 0)
 Ireland <- epi_info %>%
   filter(location == "Ireland") %>%
-  filter(new_cases > 0)
+  filter(new_cases >= 0)
 CostaRica <- epi_info %>%
   filter(location == "Costa Rica") %>%
   filter(new_cases > 0)
 India <- epi_info %>%
   filter(location == "India") %>%
-  filter(new_cases > 0)
+  filter(new_cases >= 0)
 ```
 
 # Plot
