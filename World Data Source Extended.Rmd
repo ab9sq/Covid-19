@@ -3,6 +3,12 @@ title: "Data Explorer for Our World in Data COVID dataset"
 author: "Nick Lauerman"
 date: "as of 19-October-2020"
 output: 
+  word_document: 
+    toc: yes
+    toc_depth: 4
+    fig_width: 6.5
+    fig_height: 6.5
+    fig_caption: yes
   html_document: 
     toc: yes
     toc_depth: 4
@@ -14,12 +20,6 @@ output:
     toc_depth: 4
     fig_height: 6.5
     fig_width: 6.5
-    fig_caption: yes
-  word_document: 
-    toc: yes
-    toc_depth: 4
-    fig_width: 6.5
-    fig_height: 6.5
     fig_caption: yes
 ---
 
