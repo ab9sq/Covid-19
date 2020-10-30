@@ -1,5 +1,5 @@
 ---
-title: "Stare data"
+title: "State data"
 author: "Nick Lauerman"
 date: "19-Oct-2020"
 output: html_document
